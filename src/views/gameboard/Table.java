@@ -38,6 +38,7 @@ public class Table extends JPanel{
                         iData.setCol(button.getColumnNumber());
                         iData.setRow(button.getRowNumber());
                         iData.sendInfo();
+                        button.setState(iData.getStatus());
                     });
                     button.setRowNumber(i);
                     button.setColumnNumber(j-1);

@@ -22,5 +22,15 @@ public class JFWindow extends JFrame {
         gamePanel = new GamePanel(actionListener, iData);
         add(gamePanel, BorderLayout.CENTER);
         setVisible(true);
+
+        Timer timer = new Timer(1000, e -> {
+            gamePanel.updateScore(iData);
+            if (iData.isWinner()){
+                JOptionPane.showMessageDialog(this,"You Win");
+                ((Timer)e.getSource()).stop();
+            }
+        });
+        timer.start();
+
     }
 }
