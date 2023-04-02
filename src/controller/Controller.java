@@ -3,21 +3,27 @@ package controller;
 import network.Client;
 import views.gameboard.JFWindow;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller implements ActionListener, IData {
 
+    private String name;
     private int row, col, score;
     private boolean isWinner;
     private int state; // 0=> sin estado   1=>Le dio a un barco  2=>Falló
-    private JFWindow window;
-    private Client client;
+    private String allInfo;
+    private final JFWindow window;
+    private final Client client;
 
     public Controller() {
-        window = new JFWindow(this, this);
-        client = new Client();
-        isWinner = false;
+        do {
+            name = JOptionPane.showInputDialog("Ingrese Nombre:");
+        } while (name == null || name.isEmpty());
+        this.window = new JFWindow(this, this);
+        this.client = new Client(this);
+        this.isWinner = false;
     }
 
     @Override
@@ -78,5 +84,32 @@ public class Controller implements ActionListener, IData {
     @Override
     public void setIsWinner(boolean isWinner) {
         this.isWinner = isWinner;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getAllInfo() {
+        return allInfo;
+    }
+
+    @Override
+    public void setAllInfo(String str) {
+        this.allInfo = str;
+        window.cleanRows();
+        String[] users = str.split("/");
+        for (String user : users) {
+            String[] info = user.split(",");
+            info[2] = (info[2].equals("false")) ? "Ganó" : "Jugando";
+            this.window.updateScoreTable(info);
+        }
     }
 }

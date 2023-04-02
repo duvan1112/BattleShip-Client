@@ -16,7 +16,7 @@ public class JFWindow extends JFrame {
         setTitle("BattleShip - Grupo 2");
         //setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocation(10,10);
         setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resources/images/boat.png"))).getImage());
 
         gamePanel = new GamePanel(actionListener, iData);
@@ -32,5 +32,13 @@ public class JFWindow extends JFrame {
         });
         timer.start();
 
+    }
+
+    public void updateScoreTable(String[] list) {
+        gamePanel.addElementToTable(list);
+    }
+
+    public void cleanRows() {
+        gamePanel.cleanRows();
     }
 }
