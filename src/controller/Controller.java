@@ -17,12 +17,12 @@ public class Controller implements ActionListener, IData {
     private final JFWindow window;
     private final Client client;
 
-    public Controller() {
+    public Controller(String ipServer) {
         do {
             name = JOptionPane.showInputDialog("Ingrese Nombre:");
         } while (name == null || name.isEmpty());
         this.window = new JFWindow(this, this);
-        this.client = new Client(this);
+        this.client = new Client(this,ipServer);
         this.isWinner = false;
     }
 
